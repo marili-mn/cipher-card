@@ -1,59 +1,65 @@
 :root {
-  /* --- PALETA DEFAULT (DARK / CYBERSECURITY) --- */
-  --bg-app: #0f172a;       /* Slate 900 */
-  --surface: #1e293b;      /* Slate 800 */
-  --surface-highlight: #334155; /* Slate 700 */
+  /* --- PALETA BATIMÓVIL (DEFAULT DARK) --- */
+  --bg-app: #050505;       /* Negro Absoluto */
+  --surface: #121212;      /* Carbono Base */
+  --surface-highlight: #262626; /* Metal Oscuro */
   
-  --primary: #6366f1;      /* Indigo 500 */
-  --primary-glow: rgba(99, 102, 241, 0.4);
+  --primary: #ffffff;      /* Luz de Faro (Blanco Puro) */
+  --primary-dim: #a3a3a3;  /* Acero */
   
-  --text-main: #f8fafc;    /* Slate 50 */
-  --text-muted: #94a3b8;   /* Slate 400 */
+  --text-main: #e5e5e5;    /* Gris Platino */
+  --text-muted: #525252;   /* Gris Humo */
   
-  --border-color: #334155;
+  --border-color: #333333; /* Borde Metálico */
   
-  --danger: #ef4444;
-  --success: #10b981;
+  --danger: #991b1b;       /* Rojo Alerta (Oscuro) */
+  --success: #15803d;      /* Verde Visión Nocturna */
   
   --font-mono: 'Courier New', Courier, monospace;
-  --nav-height: 70px;
+  --nav-height: 80px;
 }
 
-/* --- TEMA CLARO (TECHNICAL GRAY) --- */
+/* --- TEMA STARK (LIGHT MONOCHROME) --- */
 .light-theme {
-  --bg-app: #f1f5f9;       /* Slate 100 */
-  --surface: #ffffff;      /* White */
-  --surface-highlight: #e2e8f0; /* Slate 200 */
+  --bg-app: #ffffff;       /* Blanco Puro */
+  --surface: #f5f5f5;      /* Gris Muy Claro */
+  --surface-highlight: #e5e5e5; 
   
-  --primary: #4f46e5;      /* Indigo 600 (Más contraste) */
-  --primary-glow: rgba(79, 70, 229, 0.2);
+  --primary: #000000;      /* Tinta Negra */
+  --primary-dim: #404040;
   
-  --text-main: #0f172a;    /* Slate 900 */
-  --text-muted: #64748b;   /* Slate 500 */
+  --text-main: #000000;
+  --text-muted: #737373;
   
-  --border-color: #cbd5e1; /* Slate 300 */
+  --border-color: #000000; /* Bordes Duros */
 }
 
-/* Reset básico */
+/* Reset y Base */
 * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
 
 body {
   background-color: var(--bg-app);
   color: var(--text-main);
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  transition: background-color 0.3s ease, color 0.3s ease; /* Transición suave de tema */
+  transition: background-color 0.5s cubic-bezier(0.25, 1, 0.5, 1), color 0.5s ease;
   min-height: 100vh;
-  padding-bottom: var(--nav-height); /* Espacio para el dock */
+  padding-bottom: var(--nav-height);
+  overflow-x: hidden;
 }
+
+/* Scrollbar Táctica (Invisible/Sutil) */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--bg-app); }
+::-webkit-scrollbar-thumb { background: var(--surface-highlight); border-radius: 3px; }
 
 /* Utilidad de contenedor */
 .container {
   max-width: 480px;
   margin: 0 auto;
-  padding: 20px;
+  padding: 24px;
   min-height: 100vh;
   background-color: var(--bg-app);
-  transition: background-color 0.3s ease;
+  transition: background-color 0.5s ease;
 }
 
 button { cursor: pointer; border: none; background: none; font-family: inherit; }

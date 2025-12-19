@@ -1,29 +1,40 @@
 import type { Card } from "../../core/domain/Card";
 import type { ICardRepository } from "../../core/repositories/ICardRepository";
 
-// Simula base de datos en memoria
+// MOCK DATABASE: WAYNE ENTERPRISES FINANCIAL DIVISION
 let MOCK_DB: Card[] = [
   {
-    id: '1',
-    pan: '4532 1234 5678 9012',
-    cvv: '123',
-    expiry: '12/28',
-    holderName: 'ALEX RIVERA',
+    id: 'wayne-001',
+    pan: '4000 1234 5678 9999',
+    cvv: '007',
+    expiry: '12/99',
+    holderName: 'BRUCE WAYNE',
     status: 'active',
-    limit: 1000,
-    spent: 450.50,
+    limit: 10000000,
+    spent: 45000.50,
     provider: 'visa'
   },
   {
-    id: '2',
-    pan: '5412 7512 3412 3456',
-    cvv: '999',
-    expiry: '01/26',
-    holderName: 'ALEX RIVERA',
+    id: 'cave-ops-01',
+    pan: '5100 7512 3412 0000',
+    cvv: '***',
+    expiry: '01/30',
+    holderName: 'THE BATMAN', // Internal Alias
     status: 'frozen',
-    limit: 50,
-    spent: 12.00,
+    limit: 50000,
+    spent: 12500.00,
     provider: 'mastercard'
+  },
+  {
+    id: 'alfred-01',
+    pan: '4111 1111 1111 1234',
+    cvv: '123',
+    expiry: '05/26',
+    holderName: 'ALFRED PENNYWORTH',
+    status: 'active',
+    limit: 5000,
+    spent: 230.00,
+    provider: 'visa'
   }
 ];
 
@@ -31,12 +42,12 @@ const delay = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
 
 export class MockCardRepository implements ICardRepository {
   async getAll(): Promise<Card[]> {
-    await delay(800); // Latencia simulada
+    await delay(1200); // Latencia cinemática un poco más larga
     return [...MOCK_DB];
   }
 
   async toggleLock(cardId: string): Promise<Card> {
-    await delay(400);
+    await delay(300); // Respuesta mecánica rápida
     const cardIndex = MOCK_DB.findIndex(c => c.id === cardId);
     if (cardIndex === -1) throw new Error("Card not found");
 
@@ -47,10 +58,10 @@ export class MockCardRepository implements ICardRepository {
   }
 
   async create(cardData: Omit<Card, "id" | "spent" | "status">): Promise<Card> {
-    await delay(1000);
+    await delay(1500);
     const newCard: Card = {
       ...cardData,
-      id: Math.random().toString(36).substr(2, 9),
+      id: 'gen-' + Math.random().toString(36).substr(2, 9),
       status: 'active',
       spent: 0
     };
