@@ -1,8 +1,9 @@
 import React from 'react';
 import styles from './CardItem.module.css';
-import type { Card } from '../../core/domain/Card'; // <--- CORRECCIÓN: 'type'
+import type { Card } from '../../core/domain/Card';
 import { Shield, ShieldOff, Cpu } from 'lucide-react';
 import { clsx } from 'clsx';
+import { motion } from 'framer-motion';
 
 interface Props {
   card: Card;
@@ -11,43 +12,73 @@ interface Props {
 
 export const CardItem: React.FC<Props> = ({ card, onToggleLock }) => {
   const isFrozen = card.status === 'frozen';
+  
+  // Colores dinámicos según tema (usamos valores hex directos para animación suave)
+  const activeColor = "#ffffff";
+  const frozenColor = "#991b1b";
+  const borderColor = isFrozen ? frozenColor : "rgba(255,255,255,0.1)";
 
   return (
-    <div 
-      className={clsx(styles.cardContainer, isFrozen && styles.frozen)}
+    <motion.div
+      layout
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ 
+        opacity: 1, 
+        y: 0,
+        borderColor: borderColor,
+        // Efecto Láser Breathing en el borde si está congelada
+        boxShadow: isFrozen 
+          ? `0 0 20px -5px ${frozenColor}` 
+          : "0 10px 20px -5px rgba(0,0,0,0.8)"
+      }}
+      whileTap={{ scale: 0.98 }}
+      transition={{ type: "spring", stiffness: 300, damping: 20 }}
+      className={styles.cardContainer}
       onClick={() => onToggleLock(card.id)}
+      style={{
+        borderWidth: '1px',
+        borderStyle: 'solid'
+      }}
     >
-      <div className={styles.statusIndicator}>
-        <div className={clsx(styles.led, isFrozen && styles.ledFrozen)} />
-        <span style={{ fontSize: '0.6rem', color: 'var(--text-muted)', fontWeight: 'bold' }}>
-          {isFrozen ? 'SECURED / FROZEN' : 'ACTIVE / ENCRYPTED'}
-        </span>
+      <div className={styles.bgDeco} />
+
+      {/* Header: Chip y Status (Ahora separados) */}
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '20px' }}>
+        <Cpu color="#525252" size={36} strokeWidth={1.5} />
+        
+        {/* Status Indicator (Top Right) */}
+        <div className={styles.statusIndicator}>
+          <div className={clsx(styles.led, isFrozen && styles.ledFrozen)} />
+          <span style={{ fontSize: '0.6rem', color: '#a3a3a3', fontWeight: 'bold', letterSpacing: '1px' }}>
+            {isFrozen ? 'FROZEN' : 'ACTIVE'}
+          </span>
+        </div>
       </div>
 
-      <div style={{ display: 'flex', justifyContent: 'space-between', width: '100%' }}>
-        <Cpu color="#94a3b8" size={32} strokeWidth={1.5} />
+      {/* Provider ahora debajo del Chip para balancear */}
+      <div style={{ position: 'absolute', top: '28px', left: '70px' }}>
         <span className={styles.provider}>{card.provider.toUpperCase()}</span>
       </div>
 
-      <div className={styles.cardNumber}>
+      <div className={clsx(styles.cardNumber, isFrozen && styles.frozenText)}>
         {isFrozen ? "•••• •••• •••• " + card.pan.slice(-4) : card.pan}
       </div>
 
       <div className={styles.footer}>
         <div>
-          <p className={styles.label}>Card Holder</p>
+          <p className={styles.label}>OPERATIVE</p>
           <p className={styles.value}>{card.holderName}</p>
         </div>
         <div style={{ textAlign: 'right' }}>
-          <p className={styles.label}>Expiry</p>
+          <p className={styles.label}>EXP</p>
           <p className={styles.value}>{card.expiry}</p>
         </div>
       </div>
       
-      {/* Icono de estado flotante al interactuar */}
-      <div style={{ position: 'absolute', bottom: '24px', right: '120px', opacity: 0.1 }}>
-        {isFrozen ? <ShieldOff size={80} /> : <Shield size={80} />}
+      {/* Icono de fondo gigante sutil */}
+      <div style={{ position: 'absolute', bottom: '-20px', right: '-20px', opacity: 0.05, transform: 'rotate(-15deg)' }}>
+        {isFrozen ? <ShieldOff size={140} color="red" /> : <Shield size={140} color="white" />}
       </div>
-    </div>
+    </motion.div>
   );
 };

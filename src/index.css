@@ -1,19 +1,20 @@
 :root {
   /* --- PALETA BATIMÓVIL (DEFAULT DARK) --- */
-  --bg-app: #050505;       /* Negro Absoluto */
-  --surface: #121212;      /* Carbono Base */
-  --surface-highlight: #262626; /* Metal Oscuro */
+  --bg-app: #050505;
+  --surface: #121212;
+  --surface-highlight: #262626;
+  --card-bg: #0a0a0a; /* Negro Stealth */
   
-  --primary: #ffffff;      /* Luz de Faro (Blanco Puro) */
-  --primary-dim: #a3a3a3;  /* Acero */
+  --primary: #ffffff;
+  --primary-dim: #a3a3a3;
   
-  --text-main: #e5e5e5;    /* Gris Platino */
-  --text-muted: #525252;   /* Gris Humo */
+  --text-main: #e5e5e5;
+  --text-muted: #737373; /* Más claro para legibilidad */
   
-  --border-color: #333333; /* Borde Metálico */
+  --border-color: #333333;
   
-  --danger: #991b1b;       /* Rojo Alerta (Oscuro) */
-  --success: #15803d;      /* Verde Visión Nocturna */
+  --danger: #991b1b;
+  --success: #15803d;
   
   --font-mono: 'Courier New', Courier, monospace;
   --nav-height: 80px;
@@ -21,17 +22,18 @@
 
 /* --- TEMA STARK (LIGHT MONOCHROME) --- */
 .light-theme {
-  --bg-app: #ffffff;       /* Blanco Puro */
-  --surface: #f5f5f5;      /* Gris Muy Claro */
-  --surface-highlight: #e5e5e5; 
+  --bg-app: #ffffff;
+  --surface: #f5f5f5;
+  --surface-highlight: #e5e5e5;
+  --card-bg: #2d2d2d; /* Gunmetal Gray (Gris Oscuro sobre Blanco) - El usuario pidió "mas grises" */
   
-  --primary: #000000;      /* Tinta Negra */
+  --primary: #000000;
   --primary-dim: #404040;
   
   --text-main: #000000;
-  --text-muted: #737373;
+  --text-muted: #525252;
   
-  --border-color: #000000; /* Bordes Duros */
+  --border-color: #000000;
 }
 
 /* Reset y Base */
@@ -47,12 +49,10 @@ body {
   overflow-x: hidden;
 }
 
-/* Scrollbar Táctica (Invisible/Sutil) */
 ::-webkit-scrollbar { width: 6px; }
 ::-webkit-scrollbar-track { background: var(--bg-app); }
 ::-webkit-scrollbar-thumb { background: var(--surface-highlight); border-radius: 3px; }
 
-/* Utilidad de contenedor */
 .container {
   max-width: 480px;
   margin: 0 auto;

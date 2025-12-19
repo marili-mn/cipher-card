@@ -65,7 +65,7 @@ src/
 
 ```bash
 # 1. Clone the repository
-git clone https://github.com/YOUR_USERNAME/cipher-card.git
+git clone https://github.com/marili-mn/cipher-card.git
 
 # 2. Enter directory
 cd cipher-card
@@ -83,40 +83,50 @@ npm run dev
 *   **Palette:** Slate 900 (Background), Indigo 600 (Primary), Red 500 (Alerts).
 *   **Typography:** System Sans for UI, Monospaced for PAN/Security Data.
 
-## 🚀 Features (New Implementation)
+## 🚀 Features (Current State: Project Gotham)
 
-- [x] **Hexagonal Architecture:** Full decoupling between Domain, Infrastructure, and Presentation.
-- [x] **Tactical Dock Navigation:** High-fidelity bottom navigation bar for quick thumb access.
-- [x] **Theme Engine:** Integrated Dark/Light mode switcher using CSS variables and local storage persistence.
-- [x] **Secure UI/UX:** Industrial "Carbon Fiber" aesthetics with high-contrast visual feedback.
-- [x] **Dynamic Routing:** Multi-view management with `react-router-dom`.
+- [x] **Hexagonal Architecture:** Strict decoupling (Core / Infrastructure / Presentation).
+- [x] **Tactical UI ("Batmobile" Aesthetic):** High-contrast Dark Mode (OLED Black) & "Stark" Light Mode.
+- [x] **Cinematic Boot:** "Breathing" splash screen with terminal-style boot sequence.
+- [x] **Wayne Protocol Login:** Simulated biometric/key-entry authentication flow.
+- [x] **Tactical Dock Navigation:** Floating bottom navigation bar.
+- [x] **Polyglot Core (i18n):** 5-language support (ES, EN, PT, FR, DE) with instant context switching.
+- [x] **Session Management:** Context-based auth flow with "Abort Session" capability.
+- [x] **Secure Manifesto:** In-app architectural documentation for stakeholders.
 
 ## 🎨 Design System
 
-*   **Aesthetics:** "Industrial Security / Carbon Fiber".
-*   **Themes:** 
-    *   **Dark (Default):** Slate 900 background for a tactical look.
-    *   **Light:** Technical Slate 100 for high-glare environments.
-*   **Navigation:** No-hamburger policy. All critical actions are accessible via the **Tactical Dock**.
+*   **Theme:** "Gotham Tactical" (Carbon Fiber textures, Laser outlines).
+*   **Palette:**
+    *   **Dark:** Absolute Black (`#050505`), Tungsten, Pure White text.
+    *   **Light:** Technical Blueprint (High contrast B&W).
+*   **Typography:** Inter (UI) + Courier New (Data/PANs).
 
-## 🏗️ Updated Architecture
+## 🏗️ Architecture Overview
 
 ```text
 src/
-├── core/                  # Domain & Ports
-├── infrastructure/        # Adapters (Mock Data)
-├── presentation/          # React UI Layer
-│   ├── components/        # CardItem, DockNav
-│   ├── hooks/             # useCards, useTheme
-│   └── views/             # Dashboard, CreateCard, Settings
+├── core/                  # 🧠 Domain Logic (No UI)
+│   ├── context/           # Session & Global State
+│   ├── domain/            # Entities (Card.ts)
+│   ├── i18n/              # Translation Dictionaries
+│   └── repositories/      # Contracts (Interfaces)
+│
+├── infrastructure/        # 🔌 Adapters
+│   └── adapters/          # Mock Data (Wayne Enterprises DB)
+│
+├── presentation/          # 👁️ UI Layer (React)
+│   ├── components/        # Atomic Widgets (CardItem, DockNav)
+│   ├── hooks/             # Logic Connectors (useCards, useLanguage)
+│   └── views/             # Full Screens (Splash, Login, Dashboard)
 ```
 
 ## 🔜 Roadmap
 
-- [x] Tactical Dock & Theme Engine
-- [ ] **Phase 2:** Implement "Generator Module" (CreateCardView).
-- [ ] **Phase 3:** Real-time data sync with NestJS + MySQL.
-- [ ] **Phase 4:** AES-256 client-side encryption for sensitive data.
+- [x] **Phase 1:** Visual Overhaul & Core Logic.
+- [ ] **Phase 2:** Functional "Create Card" Form.
+- [ ] **Phase 3:** NestJS Microservices Integration.
+- [ ] **Phase 4:** WebAuthn Biometric Implementation.
 
 ---
-*Built with ❤️ and 🛡️ by Nahuel Marcilli*
+*Built with 🦇 and 🛡️ by Nahuel Marcilli*

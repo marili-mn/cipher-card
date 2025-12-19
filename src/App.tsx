@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { SplashView } from './presentation/views/SplashView';
 import { LoginView } from './presentation/views/LoginView';
@@ -7,12 +7,14 @@ import { SettingsView } from './presentation/views/SettingsView';
 import { CreateCardView } from './presentation/views/CreateCardView';
 import { DockNav } from './presentation/components/DockNav';
 import { AnimatePresence, motion } from 'framer-motion';
+import { SessionProvider, useSession } from './core/context/SessionContext';
 
-function App() {
-  const [appState, setAppState] = useState<'splash' | 'login' | 'ready'>('splash');
+// Componente interno que consume el contexto
+const AppContent = () => {
+  const { appState, finishSplash, login } = useSession();
 
   if (appState === 'splash') {
-    return <SplashView onComplete={() => setAppState('login')} />;
+    return <SplashView onComplete={finishSplash} />;
   }
 
   if (appState === 'login') {
@@ -23,7 +25,7 @@ function App() {
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
         >
-          <LoginView onLogin={() => setAppState('ready')} />
+          <LoginView onLogin={login} />
         </motion.div>
       </AnimatePresence>
     );
@@ -41,6 +43,15 @@ function App() {
         <DockNav />
       </div>
     </BrowserRouter>
+  );
+};
+
+// Root Component
+function App() {
+  return (
+    <SessionProvider>
+      <AppContent />
+    </SessionProvider>
   );
 }
 
