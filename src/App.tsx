@@ -1,4 +1,3 @@
-import React from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { SplashView } from './presentation/views/SplashView';
 import { LoginView } from './presentation/views/LoginView';
@@ -9,7 +8,6 @@ import { DockNav } from './presentation/components/DockNav';
 import { AnimatePresence, motion } from 'framer-motion';
 import { SessionProvider, useSession } from './core/context/SessionContext';
 
-// Componente interno que consume el contexto
 const AppContent = () => {
   const { appState, finishSplash, login } = useSession();
 
@@ -46,7 +44,6 @@ const AppContent = () => {
   );
 };
 
-// Root Component
 function App() {
   return (
     <SessionProvider>

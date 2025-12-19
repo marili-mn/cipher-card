@@ -1,7 +1,7 @@
 // Debugging layer
 console.log('🚀 [Boot] Iniciando aplicación...');
 
-window.onerror = function(message, source, lineno, colno, error) {
+window.onerror = function(message, source, lineno, _colno, error) {
   console.error('🔥 [CRITICAL] Error global no capturado:', message, error);
   document.body.innerHTML = `<div style="color:red; padding:20px; font-family:monospace; background:#1a1a1a; height:100vh">
     <h1>System Crash</h1>

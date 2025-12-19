@@ -1,4 +1,5 @@
-import React, { createContext, useContext, useState, ReactNode } from 'react';
+import React, { createContext, useContext, useState } from 'react';
+import type { ReactNode } from 'react';
 
 type AppState = 'splash' | 'login' | 'ready';
 
@@ -15,9 +16,7 @@ export const SessionProvider: React.FC<{ children: ReactNode }> = ({ children })
   const [appState, setAppState] = useState<AppState>('splash');
 
   const login = () => setAppState('ready');
-  // Logout resetea a Splash (o a Login si prefieres saltarte la intro)
   const logout = () => {
-    // Simulamos limpieza de memoria segura
     console.log("🔒 Wiping session memory...");
     setAppState('splash'); 
   };

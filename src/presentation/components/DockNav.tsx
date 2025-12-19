@@ -15,9 +15,9 @@ export const DockNav: React.FC = () => {
     justifyContent: 'space-around',
     alignItems: 'center',
     zIndex: 100,
-    backdropFilter: 'blur(10px)', // Efecto vidrio
-    maxWidth: '480px', // Limitar ancho en desktop
-    margin: '0 auto' // Centrar en desktop
+    backdropFilter: 'blur(10px)',
+    maxWidth: '480px',
+    margin: '0 auto'
   };
 
   const linkStyle = ({ isActive }: { isActive: boolean }) => ({
@@ -41,7 +41,7 @@ export const DockNav: React.FC = () => {
       </NavLink>
 
       <NavLink to="/create" style={linkStyle}>
-        {({ isActive }) => (
+        {() => (
           <div style={{ 
             transform: 'translateY(-20px)', 
             background: 'var(--bg-app)', 

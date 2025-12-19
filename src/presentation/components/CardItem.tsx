@@ -13,8 +13,6 @@ interface Props {
 export const CardItem: React.FC<Props> = ({ card, onToggleLock }) => {
   const isFrozen = card.status === 'frozen';
   
-  // Colores dinámicos según tema (usamos valores hex directos para animación suave)
-  const activeColor = "#ffffff";
   const frozenColor = "#991b1b";
   const borderColor = isFrozen ? frozenColor : "rgba(255,255,255,0.1)";
 
@@ -26,7 +24,6 @@ export const CardItem: React.FC<Props> = ({ card, onToggleLock }) => {
         opacity: 1, 
         y: 0,
         borderColor: borderColor,
-        // Efecto Láser Breathing en el borde si está congelada
         boxShadow: isFrozen 
           ? `0 0 20px -5px ${frozenColor}` 
           : "0 10px 20px -5px rgba(0,0,0,0.8)"
@@ -42,11 +39,9 @@ export const CardItem: React.FC<Props> = ({ card, onToggleLock }) => {
     >
       <div className={styles.bgDeco} />
 
-      {/* Header: Chip y Status (Ahora separados) */}
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '20px' }}>
         <Cpu color="#525252" size={36} strokeWidth={1.5} />
         
-        {/* Status Indicator (Top Right) */}
         <div className={styles.statusIndicator}>
           <div className={clsx(styles.led, isFrozen && styles.ledFrozen)} />
           <span style={{ fontSize: '0.6rem', color: '#a3a3a3', fontWeight: 'bold', letterSpacing: '1px' }}>
@@ -55,12 +50,11 @@ export const CardItem: React.FC<Props> = ({ card, onToggleLock }) => {
         </div>
       </div>
 
-      {/* Provider ahora debajo del Chip para balancear */}
       <div style={{ position: 'absolute', top: '28px', left: '70px' }}>
         <span className={styles.provider}>{card.provider.toUpperCase()}</span>
       </div>
 
-      <div className={clsx(styles.cardNumber, isFrozen && styles.frozenText)}>
+      <div className={styles.cardNumber}>
         {isFrozen ? "•••• •••• •••• " + card.pan.slice(-4) : card.pan}
       </div>
 
@@ -75,7 +69,6 @@ export const CardItem: React.FC<Props> = ({ card, onToggleLock }) => {
         </div>
       </div>
       
-      {/* Icono de fondo gigante sutil */}
       <div style={{ position: 'absolute', bottom: '-20px', right: '-20px', opacity: 0.05, transform: 'rotate(-15deg)' }}>
         {isFrozen ? <ShieldOff size={140} color="red" /> : <Shield size={140} color="white" />}
       </div>
