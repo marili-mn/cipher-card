@@ -83,14 +83,40 @@ npm run dev
 *   **Palette:** Slate 900 (Background), Indigo 600 (Primary), Red 500 (Alerts).
 *   **Typography:** System Sans for UI, Monospaced for PAN/Security Data.
 
+## 🚀 Features (New Implementation)
+
+- [x] **Hexagonal Architecture:** Full decoupling between Domain, Infrastructure, and Presentation.
+- [x] **Tactical Dock Navigation:** High-fidelity bottom navigation bar for quick thumb access.
+- [x] **Theme Engine:** Integrated Dark/Light mode switcher using CSS variables and local storage persistence.
+- [x] **Secure UI/UX:** Industrial "Carbon Fiber" aesthetics with high-contrast visual feedback.
+- [x] **Dynamic Routing:** Multi-view management with `react-router-dom`.
+
+## 🎨 Design System
+
+*   **Aesthetics:** "Industrial Security / Carbon Fiber".
+*   **Themes:** 
+    *   **Dark (Default):** Slate 900 background for a tactical look.
+    *   **Light:** Technical Slate 100 for high-glare environments.
+*   **Navigation:** No-hamburger policy. All critical actions are accessible via the **Tactical Dock**.
+
+## 🏗️ Updated Architecture
+
+```text
+src/
+├── core/                  # Domain & Ports
+├── infrastructure/        # Adapters (Mock Data)
+├── presentation/          # React UI Layer
+│   ├── components/        # CardItem, DockNav
+│   ├── hooks/             # useCards, useTheme
+│   └── views/             # Dashboard, CreateCard, Settings
+```
+
 ## 🔜 Roadmap
 
-- [x] Hexagonal Architecture Setup
-- [x] Mock Data Adapter
-- [x] Dashboard UI (Prototype Mode)
-- [ ] **Phase 2:** Integrate CSS Modules for "Carbon Fiber" Aesthetics.
-- [ ] **Phase 3:** Connect to NestJS Backend.
-- [ ] **Phase 4:** Biometric Authentication (WebAuthn).
+- [x] Tactical Dock & Theme Engine
+- [ ] **Phase 2:** Implement "Generator Module" (CreateCardView).
+- [ ] **Phase 3:** Real-time data sync with NestJS + MySQL.
+- [ ] **Phase 4:** AES-256 client-side encryption for sensitive data.
 
 ---
 *Built with ❤️ and 🛡️ by Nahuel Marcilli*

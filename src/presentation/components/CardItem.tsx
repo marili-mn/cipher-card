@@ -1,6 +1,6 @@
 import React from 'react';
 import styles from './CardItem.module.css';
-import { Card } from '../../core/domain/Card';
+import type { Card } from '../../core/domain/Card'; // <--- CORRECCIÓN: 'type'
 import { Shield, ShieldOff, Cpu } from 'lucide-react';
 import { clsx } from 'clsx';
 

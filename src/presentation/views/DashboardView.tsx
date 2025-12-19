@@ -1,99 +1,62 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useCards } from '../hooks/useCards';
+import { CardItem } from '../components/CardItem';
+import { ShieldCheck, Activity } from 'lucide-react';
 
-// Versión simplificada y blindada del Dashboard
-// Objetivo: Validar que el flujo de datos (Hooks -> Mock -> UI) funciona
 export const DashboardView: React.FC = () => {
-  const { cards, isLoading, error, toggleCardLock } = useCards();
+  const { cards, isLoading, toggleCardLock, error } = useCards();
 
-  console.log('Renderizando Dashboard. Estado:', { isLoading, error, cardsLength: cards.length });
-
-  // Estilos inline para evitar problemas de carga de CSS
-  const styles = {
-    container: {
-      backgroundColor: '#0f172a',
-      minHeight: '100vh',
-      padding: '20px',
-      color: 'white',
-      fontFamily: 'sans-serif'
-    },
-    card: {
-      backgroundColor: '#1e293b',
-      borderRadius: '12px',
-      padding: '20px',
-      marginBottom: '15px',
-      border: '1px solid #334155',
-      cursor: 'pointer'
-    },
-    status: {
-      fontSize: '12px',
-      textTransform: 'uppercase' as const,
-      color: '#94a3b8',
-      marginBottom: '10px'
-    },
-    pan: {
-      fontFamily: 'monospace',
-      fontSize: '18px',
-      letterSpacing: '2px',
-      marginBottom: '10px'
-    }
-  };
-
-  if (isLoading) {
-    return <div style={{...styles.container, display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
-      <h2>⏳ Loading Secure Vault...</h2>
-    </div>;
-  }
-
-  if (error) {
-    return <div style={{...styles.container, color: 'red'}}>
-      <h2>❌ Error: {error}</h2>
-    </div>;
-  }
-
+  // Quitamos los estilos inline hardcoded para permitir temas
   return (
-    <div style={styles.container}>
-      <h1 style={{ marginBottom: '30px', borderBottom: '1px solid #334155', paddingBottom: '10px' }}>
-        CipherCard <span style={{ fontSize: '12px', color: '#6366f1' }}>SECURE PROTOTYPE</span>
-      </h1>
+    <div className="container">
+      <header style={{ 
+        display: 'flex', 
+        justifyContent: 'space-between', 
+        alignItems: 'center', 
+        marginBottom: '32px',
+        paddingTop: '20px'
+      }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+          <ShieldCheck color="var(--primary)" size={32} />
+          <h1 style={{ fontSize: '1.5rem', fontWeight: 800 }}>CipherCard</h1>
+        </div>
+      </header>
 
-      <div style={{ maxWidth: '400px', margin: '0 auto' }}>
-        {cards.map(card => (
-          <div 
-            key={card.id} 
-            style={{
-              ...styles.card,
-              opacity: card.status === 'frozen' ? 0.6 : 1,
-              borderColor: card.status === 'frozen' ? '#ef4444' : '#6366f1'
-            }}
-            onClick={() => toggleCardLock(card.id)}
-          >
-            <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-              <span style={styles.status}>
-                {card.status === 'frozen' ? '🔒 FROZEN' : '✅ ACTIVE'}
-              </span>
-              <span style={{ fontWeight: 'bold', color: '#6366f1' }}>{card.provider.toUpperCase()}</span>
-            </div>
-            
-            <div style={styles.pan}>
-              {card.status === 'frozen' ? '•••• •••• •••• ' + card.pan.slice(-4) : card.pan}
-            </div>
-
-            <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '14px', color: '#cbd5e1' }}>
-              <span>{card.holderName}</span>
-              <span>{card.expiry}</span>
-            </div>
-            
-            <p style={{ fontSize: '10px', marginTop: '15px', color: '#64748b' }}>
-              Tap to {card.status === 'active' ? 'freeze' : 'unfreeze'}
-            </p>
+      <main style={{ paddingBottom: '80px' }}>
+        {isLoading ? (
+          <div style={{ padding: '40px', textAlign: 'center', color: 'var(--text-muted)' }}>
+            <p>Decrypting secure vault...</p>
           </div>
-        ))}
-      </div>
+        ) : error ? (
+          <div style={{ color: 'var(--danger)', padding: '20px', textAlign: 'center' }}>
+            {error}
+          </div>
+        ) : (
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+            {cards.map(card => (
+              <CardItem 
+                key={card.id} 
+                card={card} 
+                onToggleLock={toggleCardLock} 
+              />
+            ))}
+          </div>
+        )}
 
-      <div style={{ marginTop: '50px', fontSize: '12px', color: '#475569', textAlign: 'center' }}>
-        Backend: Mock Adapter | Encryption: None (Demo)
-      </div>
+        {/* Activity Feed */}
+        <section style={{ marginTop: '40px' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '16px' }}>
+            <Activity size={18} color="var(--text-muted)" />
+            <h2 style={{ fontSize: '0.8rem', color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '1px' }}>
+              Security Events
+            </h2>
+          </div>
+          <div style={{ background: 'var(--surface)', padding: '15px', borderRadius: '12px', borderLeft: '4px solid var(--primary)' }}>
+            <p style={{ fontSize: '0.8rem', fontWeight: 'bold' }}>Mock Adapter Active</p>
+            <p style={{ fontSize: '0.7rem', color: 'var(--text-muted)' }}>Running in demonstration mode</p>
+          </div>
+        </section>
+      </main>
     </div>
   );
 };
